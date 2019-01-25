@@ -1,6 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class SmurfForm extends Component {
+// const SmurfForm = props => {
+//   const { submitHandler, handleChange } = props;
+//   const { name, age, height } = props.newSmurfs;
+//   return (
+//     <div className='SmurfForm'>
+//       <form onSubmit={submitHandler}>
+//         <input
+//           onChange={handleChange}
+//           placeholder='name'
+//           value={name}
+//           name='name'
+//         />
+//         <input
+//           onChange={handleChange}
+//           placeholder='age'
+//           value={age}
+//           name='age'
+//         />
+//         <input
+//           onChange={handleChange}
+//           placeholder='height'
+//           value={height}
+//           name='height'
+//         />
+//         <button type='submit'>Add to the village</button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default SmurfForm;
+
+class SmurfForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +51,7 @@ class SmurfForm extends Component {
       age: '',
       height: ''
     });
-  }
+  };
 
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -27,27 +59,27 @@ class SmurfForm extends Component {
 
   render() {
     return (
-      <div className="SmurfForm">
+      <div className='SmurfForm'>
         <form onSubmit={this.addSmurf}>
           <input
             onChange={this.handleInputChange}
-            placeholder="name"
+            placeholder='name'
             value={this.state.name}
-            name="name"
+            name='name'
           />
           <input
             onChange={this.handleInputChange}
-            placeholder="age"
+            placeholder='age'
             value={this.state.age}
-            name="age"
+            name='age'
           />
           <input
             onChange={this.handleInputChange}
-            placeholder="height"
+            placeholder='height'
             value={this.state.height}
-            name="height"
+            name='height'
           />
-          <button type="submit">Add to the village</button>
+          <button type='submit'>Add to the village</button>
         </form>
       </div>
     );
