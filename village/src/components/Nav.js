@@ -1,9 +1,11 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
   return (
     <nav>
-      <h1>here</h1>
+      <NavLink to='/'>HOME</NavLink>
+      <NavLink to='/smurf-add'>ADD SMURF</NavLink>
     </nav>
   );
 };
