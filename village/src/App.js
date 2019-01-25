@@ -6,6 +6,7 @@ import Nav from './components/Nav';
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import SmurfCard from './components/SmurfCard';
 
 const url = 'http://localhost:3333/smurfs';
 class App extends Component {
@@ -55,6 +56,15 @@ class App extends Component {
       [e.target.name]: e.target.value
     });
   };
+
+  handleDelete = (e, id) => {
+    e.preventDefault();
+    axios.delete(`${url}/${id}`).then(res => {
+      this.setState({
+        smurfs: res.data
+      });
+    });
+  };
   render() {
     return (
       <div className='App'>
@@ -75,7 +85,19 @@ class App extends Component {
             />
           )}
         />
-        {/* <Route path='/:id' render={props => <Smurf {...props} />} /> */}
+        <Route
+          path='/smurf/:id'
+          render={props => (
+            <SmurfCard
+              {...props}
+              name={this.state.name}
+              age={this.state.age}
+              height={this.state.height}
+              smurfs={this.state.smurfs}
+              handleDelete={this.handleDelete}
+            />
+          )}
+        />
       </div>
     );
   }
