@@ -10,12 +10,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      smurfs: []
-      // newSmurfs: {
-      //   name: '',
-      //   height: '',
-      //   age: ''
-      // }
+      smurfs: [],
+      name: '',
+      height: '',
+      age: ''
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -33,30 +31,35 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  // submitHandler = () => {
-  //   axios
-  //     .post(url, this.state.newSmurfs)
-  //     .then(res => {
-  //       console.log(res.data);
-  //       this.setState({
-  //         smurfs: res.data
-  //       });
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+  submitHandler = e => {
+    e.preventDefault();
+    axios
+      .post(url, {
+        name: this.state.name,
+        age: this.state.age,
+        height: this.state.height
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          smurfs: res.data
+        });
+      })
+      .catch(err => console.log(err));
+  };
 
-  // handleChange = e => {
-  //   this.setState(prevState => ({
-  //     newSmurfs: { ...prevState.newSmurfs, [e.target.name]: e.target.value }
-  //   }));
-  // };
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     return (
       <div className='App'>
         <SmurfForm
           handleChange={this.handleChange}
           submitHandler={this.submitHandler}
-          newSmurfs={this.state.newSmurfs}
+          smurfsState={this.state}
         />
         <Smurfs smurfs={this.state.smurfs} />
       </div>
