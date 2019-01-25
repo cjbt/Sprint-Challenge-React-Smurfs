@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Route } from 'react-router-dom';
+import Nav from './components/Nav';
 
 import './App.css';
 import SmurfForm from './components/SmurfForm';
@@ -57,7 +58,9 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Nav />
         <Route
+          exact
           path='/'
           render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
         />
@@ -72,7 +75,7 @@ class App extends Component {
             />
           )}
         />
-        <Route path='/:id' render={props => <Smurf {...props} />} />
+        {/* <Route path='/:id' render={props => <Smurf {...props} />} /> */}
       </div>
     );
   }
