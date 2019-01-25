@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SmurfCard = props => {
-  const { name, age, height, handleDelete } = props;
+  const { name, age, height, handleDelete, updateHandle } = props;
   const smurf = props.smurfs.find(
     smurf => `${smurf.id}` === props.match.params.id
   );
@@ -15,7 +15,7 @@ const SmurfCard = props => {
         <strong>{height} tall</strong>
         <p>{age} smurf years old</p>
       </div>
-      <button>Update</button>
+      <button onClick={e => updateHandle(e, smurf.id)}>Update</button>
       <button onClick={e => handleDelete(e, smurf.id)}>Delete</button>
     </div>
   );

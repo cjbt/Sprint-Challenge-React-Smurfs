@@ -65,6 +65,18 @@ class App extends Component {
       });
     });
   };
+
+  updateHandle = (e, id) => {
+    e.preventDefault();
+    let selected = this.state.smurfs.find(smurf => smurf.id === id);
+    this.setState({
+      name: selected.name,
+      age: selected.age,
+      height: selected.height,
+      isUpdating: true
+    });
+    this.props.history.push('/smurf-add');
+  };
   render() {
     return (
       <div className='App'>
@@ -95,6 +107,7 @@ class App extends Component {
               height={this.state.height}
               smurfs={this.state.smurfs}
               handleDelete={this.handleDelete}
+              updateHandle={this.updateHandle}
             />
           )}
         />
