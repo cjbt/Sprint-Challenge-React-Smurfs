@@ -16,7 +16,9 @@ class App extends Component {
       smurfs: [],
       name: '',
       height: '',
-      age: ''
+      age: '',
+      beingUpdated: 0,
+      isUpdating: true
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -69,13 +71,34 @@ class App extends Component {
   updateHandle = (e, id) => {
     e.preventDefault();
     let selected = this.state.smurfs.find(smurf => smurf.id === id);
+    console.log(selected);
     this.setState({
       name: selected.name,
       age: selected.age,
       height: selected.height,
-      isUpdating: true
+      isUpdating: true,
+      beingUpdated: id
     });
     this.props.history.push('/smurf-add');
+  };
+
+  updateHandleChange = id => {
+    axios
+      .put(`${url}/${this.state.beingUpdated}`, {
+        name: this.state.name,
+        age: this.state.age,
+        height: this.state.height
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          friends: res.data,
+          name: '',
+          age: '',
+          isUpdating: false,
+          height: ''
+        });
+      });
   };
   render() {
     return (
@@ -94,6 +117,9 @@ class App extends Component {
               handleChange={this.handleChange}
               submitHandler={this.submitHandler}
               smurfsState={this.state}
+              name={this.state.name}
+              age={this.state.age}
+              height={this.state.height}
             />
           )}
         />
@@ -108,6 +134,8 @@ class App extends Component {
               smurfs={this.state.smurfs}
               handleDelete={this.handleDelete}
               updateHandle={this.updateHandle}
+              updateHandleChange={this.updateHandleChange}
+              isUpdating={this.isUpdating}
             />
           )}
         />
