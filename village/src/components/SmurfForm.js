@@ -2,27 +2,27 @@ import React from 'react';
 import axios from 'axios';
 
 const SmurfForm = props => {
-  const { submitHandler, handleChange } = props;
-  // const { name, age, height } = ;
+  const { submitHandler, handleChange, name, age, height } = props;
+
   return (
     <div className='SmurfForm'>
       <form onSubmit={submitHandler}>
         <input
           onChange={handleChange}
           placeholder='name'
-          value={props.name}
+          value={name}
           name='name'
         />
         <input
           onChange={handleChange}
           placeholder='age'
-          value={props.age}
+          value={age}
           name='age'
         />
         <input
           onChange={handleChange}
           placeholder='height'
-          value={props.height}
+          value={height}
           name='height'
         />
         <button type='submit'>Add to the village</button>
