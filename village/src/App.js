@@ -18,7 +18,7 @@ class App extends Component {
       height: '',
       age: '',
       beingUpdated: 0,
-      isUpdating: true
+      isUpdating: false
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -90,7 +90,7 @@ class App extends Component {
         height: this.state.height
       })
       .then(res => {
-        console.log(res.data);
+        console.log(this.state.name);
         this.setState({
           friends: res.data,
           name: '',
@@ -99,8 +99,11 @@ class App extends Component {
           height: ''
         });
       });
+
+    this.props.history.push('/');
   };
   render() {
+    console.log('from app:  ', this.state.beingUpdated);
     return (
       <div className='App'>
         <Nav />
@@ -120,6 +123,8 @@ class App extends Component {
               name={this.state.name}
               age={this.state.age}
               height={this.state.height}
+              isUpdating={this.state.isUpdating}
+              updateHandleChange={this.updateHandleChange}
             />
           )}
         />
@@ -135,7 +140,7 @@ class App extends Component {
               handleDelete={this.handleDelete}
               updateHandle={this.updateHandle}
               updateHandleChange={this.updateHandleChange}
-              isUpdating={this.isUpdating}
+              isUpdating={this.state.isUpdating}
             />
           )}
         />

@@ -1,19 +1,17 @@
 import React from 'react';
 
 const SmurfForm = props => {
-  const {
-    submitHandler,
-    handleChange,
-
-    updateHandleChange,
-    isUpdating
-  } = props;
+  const { submitHandler, handleChange, updateHandleChange } = props;
 
   function submitForm(e) {
     e.preventDefault();
-    return isUpdating ? updateHandleChange : submitHandler;
+    if (props.isUpdating) {
+      updateHandleChange();
+    } else {
+      submitHandler();
+    }
   }
-  console.log('from form:  ', props.name, props.age, props.height);
+  console.log(props.isUpdating);
   return (
     <div className='SmurfForm'>
       <form onSubmit={submitForm}>
