@@ -57,12 +57,22 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <SmurfForm
-          handleChange={this.handleChange}
-          submitHandler={this.submitHandler}
-          smurfsState={this.state}
+        <Route
+          path='/'
+          render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
         />
-        <Smurfs smurfs={this.state.smurfs} />
+        <Route
+          path='/smurf-add'
+          render={props => (
+            <SmurfForm
+              {...props}
+              handleChange={this.handleChange}
+              submitHandler={this.submitHandler}
+              smurfsState={this.state}
+            />
+          )}
+        />
+        <Route path='/:id' render={props => <Smurf {...props} />} />
       </div>
     );
   }
