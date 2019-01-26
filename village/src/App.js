@@ -36,8 +36,7 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  submitHandler = e => {
-    e.preventDefault();
+  submitHandler = () => {
     axios
       .post(url, {
         name: this.state.name,
@@ -90,9 +89,9 @@ class App extends Component {
         height: this.state.height
       })
       .then(res => {
-        console.log(this.state.name);
+        console.log('%cTESTING', 'color: red', res);
         this.setState({
-          friends: res.data,
+          smurfs: res.data,
           name: '',
           age: '',
           isUpdating: false,
