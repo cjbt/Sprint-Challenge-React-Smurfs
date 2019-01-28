@@ -9,11 +9,11 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 const AppWithRouter = withRouter(App);
 
 const app = (
-  <Router>
-    <Provider store={store}>
+  <Provider store={store}>
+    <Router>
       <AppWithRouter />
-    </Provider>
-  </Router>
+    </Router>
+  </Provider>
 );
 
 ReactDOM.render(app, document.getElementById('root'));

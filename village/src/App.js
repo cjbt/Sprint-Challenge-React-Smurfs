@@ -20,7 +20,7 @@ class App extends Component {
       <div className='App'>
         <Route path='/smurf-add' component={SmurfForm} />
         <Route exact path='/' component={Smurfs} />
-        <Route path='/smurf/:id' render={props => <SmurfCard {...props} />} />
+        <Route path='/smurf/:id' component={SmurfCard} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addSmurf } from '../store/actions';
+import { addSmurf, updatedSmurf } from '../store/actions';
 
 class SmurfForm extends Component {
   constructor(props) {
@@ -10,6 +10,15 @@ class SmurfForm extends Component {
       age: '',
       height: ''
     };
+  }
+
+  componentDidMount() {
+    const { name, age, height } = this.props;
+    this.setState({
+      name,
+      age,
+      height
+    });
   }
 
   addSmurf = event => {
@@ -22,16 +31,27 @@ class SmurfForm extends Component {
       age: '',
       height: ''
     });
+    this.props.history.push('/');
   };
 
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  updateSmurf = e => {
+    e.preventDefault();
+    const { name, age, height } = this.state;
+    this.props.updatedSmurf(this.props.beingUpdated, name, age, height);
+    this.props.history.push('/');
+  };
+
   render() {
+    console.log(this.props);
     return (
       <div className='SmurfForm'>
-        <form onSubmit={this.addSmurf}>
+        <form
+          onSubmit={this.props.isUpdating ? this.updateSmurf : this.addSmurf}
+        >
           <input
             onChange={this.handleInputChange}
             placeholder='name'
@@ -50,18 +70,29 @@ class SmurfForm extends Component {
             value={this.state.height}
             name='height'
           />
-          <button type='submit'>Add to the village</button>
+          <button type='submit'>
+            {this.props.isUpdating ? 'UPDATING' : 'Add to the village'}
+          </button>
         </form>
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  name: state.smurfs.name,
+  age: state.smurfs.age,
+  height: state.smurfs.height,
+  beingUpdated: state.smurfs.beingUpdated,
+  isUpdating: state.smurfs.isUpdating
+});
+
 const mapActionsToProps = {
-  addSmurf
+  addSmurf,
+  updatedSmurf
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapActionsToProps
 )(SmurfForm);
